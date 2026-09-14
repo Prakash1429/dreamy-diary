@@ -1,0 +1,216 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+/* Enable class-based dark mode in Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-handwriting: 'Caveat', cursive;
+    --font-heading: 'Outfit', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, .font-serif-title {
+    font-family: var(--font-serif);
+  }
+
+  .font-handwriting {
+    font-family: var(--font-handwriting);
+  }
+
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+}
+
+/* Custom Utilities for Scrapbook Effects */
+.scrapbook-tape {
+  position: relative;
+}
+
+.scrapbook-tape::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 90px;
+  height: 24px;
+  background: rgba(245, 230, 211, 0.65);
+  backdrop-filter: blur(2px);
+  border-left: 2px dashed rgba(210, 180, 140, 0.4);
+  border-right: 2px dashed rgba(210, 180, 140, 0.4);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+
+.polaroid-card {
+  background: #ffffff;
+  padding: 12px 12px 28px 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.dark .polaroid-card {
+  background: #1e293b;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+.polaroid-card:hover {
+  transform: translateY(-4px) rotate(1deg);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(203, 213, 225, 0.6);
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.6);
+}
+
+/* Shaking & Glowing Animations */
+@keyframes gentle-shake {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  20% { transform: rotate(-3deg) scale(1.03); }
+  40% { transform: rotate(3deg) scale(1.03); }
+  60% { transform: rotate(-2deg) scale(1.01); }
+  80% { transform: rotate(2deg) scale(1.01); }
+}
+
+@keyframes aura-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.35), 0 0 30px rgba(236, 72, 153, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(244, 63, 94, 0.6), 0 0 45px rgba(217, 70, 239, 0.4);
+  }
+}
+
+.shake-on-hover:hover {
+  animation: gentle-shake 0.5s ease-in-out;
+}
+
+.animate-glow-pulse {
+  animation: aura-glow 3s infinite ease-in-out;
+}
+
+.glow-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-card:hover {
+  box-shadow: 0 12px 35px rgba(244, 63, 94, 0.25), 0 0 20px rgba(236, 72, 153, 0.2);
+  transform: translateY(-3px);
+}
+
+.glow-button {
+  transition: all 0.3s ease;
+}
+
+.glow-button:hover {
+  box-shadow: 0 0 22px rgba(244, 63, 94, 0.55), 0 4px 18px rgba(236, 72, 153, 0.4);
+}
+
+/* Aesthetic Custom Theme Presets Variables & Overrides */
+:root {
+  --bg-app: #fff5f7;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --border-color: #ffe4e6;
+  --accent-main: #f43f5e;
+}
+
+html, html.theme-default {
+  --bg-app: #fff5f7;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --border-color: #ffe4e6;
+  --accent-main: #f43f5e;
+}
+
+html.theme-lavender {
+  --bg-app: #f4eeff;
+  --bg-card: #fcf9ff;
+  --text-main: #2e1065;
+  --border-color: #e9d5ff;
+  --accent-main: #9333ea;
+}
+
+html.theme-coral {
+  --bg-app: #fff3e6;
+  --bg-card: #fffaf5;
+  --text-main: #431407;
+  --border-color: #fed7aa;
+  --accent-main: #f97316;
+}
+
+html.theme-matcha {
+  --bg-app: #eefbf1;
+  --bg-card: #f4fbf6;
+  --text-main: #064e3b;
+  --border-color: #a7f3d0;
+  --accent-main: #10b981;
+}
+
+html.dark {
+  --bg-app: #0b0f19;
+  --bg-card: #1e293b;
+  --text-main: #f8fafc;
+  --border-color: #334155;
+  --accent-main: #f43f5e;
+}
+
+body {
+  background-color: var(--bg-app) !important;
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dynamic theme overrides for card containers and borders */
+html.theme-lavender .bg-white {
+  background-color: #fcf9ff !important;
+}
+html.theme-lavender .bg-slate-50, html.theme-lavender .bg-slate-100 {
+  background-color: #ede9fe !important;
+}
+html.theme-lavender .border-slate-100, html.theme-lavender .border-rose-100 {
+  border-color: #e9d5ff !important;
+}
+
+html.theme-coral .bg-white {
+  background-color: #fffaf5 !important;
+}
+html.theme-coral .bg-slate-50, html.theme-coral .bg-slate-100 {
+  background-color: #ffedd5 !important;
+}
+html.theme-coral .border-slate-100, html.theme-coral .border-rose-100 {
+  border-color: #fed7aa !important;
+}
+
+html.theme-matcha .bg-white {
+  background-color: #f4fbf6 !important;
+}
+html.theme-matcha .bg-slate-50, html.theme-matcha .bg-slate-100 {
+  background-color: #d1fae5 !important;
+}
+html.theme-matcha .border-slate-100, html.theme-matcha .border-rose-100 {
+  border-color: #a7f3d0 !important;
+}
+
+
+
