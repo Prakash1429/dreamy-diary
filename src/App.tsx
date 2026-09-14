@@ -65,7 +65,7 @@ const MainAppContent: React.FC = () => {
   }
 
   if (!user) {
-    return <AuthScreen onSuccess={() => setActiveTab('profile')} />;
+    return <AuthScreen onSuccess={() => setActiveTab('dashboard')} />;
   }
 
   const handleOpenAuth = (mode: 'signin' | 'signup' = 'signin') => {

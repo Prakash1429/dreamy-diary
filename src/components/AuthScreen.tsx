@@ -51,12 +51,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess }) => {
 
         const success = await signup(name.trim(), email.trim(), password.trim(), bio.trim(), avatar);
         if (success) {
-          const registeredName = name.trim();
-          setPassword('');
-          setError('');
-          setSuccessMsg('🎉 Account created successfully! Please Sign In below to enter your diary.');
-          setActiveMode('signin');
-          setName(registeredName);
+          await login(name.trim(), password.trim());
+          if (onSuccess) onSuccess();
         }
       } else {
         if (!name.trim()) {

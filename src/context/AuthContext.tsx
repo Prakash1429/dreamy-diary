@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { UserProfile } from '../types';
-import { db, seedDatabase, logHistory, DEFAULT_USER } from '../db';
+import { db, seedDatabase, logHistory } from '../db';
 
 interface AuthContextType {
   user: UserProfile | null;
@@ -27,16 +27,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           if (current) {
             setUser(current);
           } else {
-            setUser(DEFAULT_USER);
-            localStorage.setItem('dreamy_active_user_id', DEFAULT_USER.id);
+            setUser(null);
+            localStorage.removeItem('dreamy_active_user_id');
           }
         } else {
-          setUser(DEFAULT_USER);
-          localStorage.setItem('dreamy_active_user_id', DEFAULT_USER.id);
+          setUser(null);
         }
       } catch (err) {
         console.error('Auth initialization error:', err);
-        setUser(DEFAULT_USER);
+        setUser(null);
       } finally {
         setIsLoading(false);
       }
