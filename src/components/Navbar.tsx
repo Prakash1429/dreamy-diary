@@ -13,7 +13,6 @@ import {
   Users
 } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext';
 
 interface NavbarProps {
   activeTab: string;
@@ -24,11 +23,9 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
-  setActiveTab,
-  onOpenAuth
+  setActiveTab
 }) => {
   const { theme, toggleTheme } = useTheme();
-  const { user } = useAuth();
 
   const navItems = [
     { id: 'dashboard', label: 'Home', icon: Sparkles },
@@ -111,20 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <SettingsIcon className="w-4 h-4" />
           </button>
 
-          {/* Profile Avatar & Login Modal Trigger (disappears when signed in) */}
-          {!user && (
-            <div className="flex items-center gap-1 shrink-0">
-              <button
-                onClick={() => onOpenAuth('signin')}
-                className="flex items-center gap-1 p-1 rounded-xl bg-slate-100/80 dark:bg-slate-800/80 hover:bg-slate-200/80 dark:hover:bg-slate-700/80 transition-colors border border-slate-200/60 dark:border-slate-700/60 shrink-0"
-                title="Sign In / Switch Profile"
-              >
-                <div className="w-7 h-7 rounded-lg bg-rose-100 dark:bg-rose-900/60 flex items-center justify-center text-sm font-bold shadow-xs">
-                  ✨
-                </div>
-              </button>
-            </div>
-          )}
+
 
         </div>
 
