@@ -100,10 +100,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess }) => {
         
         {/* App Title & Branding */}
         <div className="text-center space-y-3 mb-5">
-          <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-rose-400 via-pink-400 to-amber-300 mx-auto p-0.5 animate-glow-pulse shake-on-hover cursor-pointer">
-            <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[22px] flex items-center justify-center text-3xl">
-              {activeMode === 'signup' ? avatar : '✨'}
-            </div>
+          <div className="w-20 h-20 rounded-full border-2 border-rose-300 dark:border-rose-700 mx-auto p-0.5 animate-glow-pulse shake-on-hover cursor-pointer shadow-lg overflow-hidden bg-white">
+            <img src="/logo.jpg" alt="Dreamy Diary Logo" className="w-full h-full object-cover rounded-full" />
           </div>
           <div>
             <h1 className="text-3xl font-bold font-serif-title bg-gradient-to-r from-rose-600 via-purple-600 to-amber-600 dark:from-rose-400 dark:via-purple-300 dark:to-amber-300 bg-clip-text text-transparent">

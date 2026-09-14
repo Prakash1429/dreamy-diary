@@ -51,10 +51,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => setActiveTab('dashboard')} 
           className="flex items-center gap-2 cursor-pointer group select-none shrink-0"
         >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-rose-400 via-pink-400 to-amber-300 p-0.5 shadow-md shadow-rose-200/50 dark:shadow-none group-hover:scale-105 transition-transform duration-300 shrink-0">
-            <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center">
-              <span className="text-lg sm:text-xl">✨</span>
-            </div>
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full p-0.5 shadow-md shadow-rose-200/50 dark:shadow-none group-hover:scale-105 transition-transform duration-300 shrink-0 overflow-hidden bg-white border border-rose-200/60 dark:border-slate-700">
+            <img src="/logo.jpg" alt="Dreamy Diary Logo" className="w-full h-full object-cover rounded-full" />
           </div>
           <div className="shrink-0">
             <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-rose-600 via-purple-600 to-amber-600 dark:from-rose-400 dark:via-purple-300 dark:to-amber-300 bg-clip-text text-transparent tracking-tight font-heading whitespace-nowrap">

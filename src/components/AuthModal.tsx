@@ -114,10 +114,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMo
         </button>
 
         <div className="text-center space-y-2 mb-6">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-400 via-pink-400 to-amber-300 mx-auto p-0.5 shadow-lg shadow-rose-200/50">
-            <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[14px] flex items-center justify-center text-2xl">
-              {activeMode === 'signup' ? avatar : '✨'}
-            </div>
+          <div className="w-16 h-16 rounded-full border-2 border-rose-300 dark:border-rose-700 mx-auto p-0.5 shadow-lg shadow-rose-200/50 overflow-hidden bg-white">
+            <img src="/logo.jpg" alt="Dreamy Diary Logo" className="w-full h-full object-cover rounded-full" />
           </div>
           <h2 className="text-2xl font-bold font-serif-title bg-gradient-to-r from-rose-600 via-purple-600 to-amber-600 dark:from-rose-400 dark:via-purple-300 dark:to-amber-300 bg-clip-text text-transparent">
             Dreamy Diary
