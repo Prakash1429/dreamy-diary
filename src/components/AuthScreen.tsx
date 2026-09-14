@@ -10,7 +10,7 @@ interface AuthScreenProps {
 }
 
 export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess }) => {
-  const { login, signup } = useAuth();
+  const { login, signup, loginAsGuest } = useAuth();
   const [activeMode, setActiveMode] = useState<'signin' | 'signup'>('signin');
 
   const [name, setName] = useState('');
@@ -306,7 +306,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess }) => {
 
         </form>
 
-        <div className="mt-5 text-center">
+        <div className="mt-5 space-y-3 text-center">
           <button
             onClick={() => { setActiveMode(activeMode === 'signin' ? 'signup' : 'signin'); setError(''); setSuccessMsg(''); }}
             className="text-xs text-rose-600 dark:text-rose-400 font-semibold hover:underline"
@@ -314,6 +314,22 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onSuccess }) => {
             {activeMode === 'signin' 
               ? "Don't have an account? Sign Up" 
               : "Already have an account? Sign In"}
+          </button>
+
+          <div className="relative py-1">
+            <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200 dark:border-slate-800"></div></div>
+            <div className="relative flex justify-center text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500"><span className="bg-white dark:bg-slate-900 px-2">or</span></div>
+          </div>
+
+          <button
+            type="button"
+            onClick={async () => {
+              await loginAsGuest();
+              if (onSuccess) onSuccess();
+            }}
+            className="w-full py-2.5 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+          >
+            <span>🚀 Continue as Guest (Quick Demo)</span>
           </button>
         </div>
 

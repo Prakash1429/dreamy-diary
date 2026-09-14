@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { UserProfile } from '../types';
-import { db, seedDatabase, logHistory } from '../db';
+import { db, seedDatabase, logHistory, DEFAULT_USER } from '../db';
 
 interface AuthContextType {
   user: UserProfile | null;
   isLoading: boolean;
   login: (identifier: string, password?: string) => Promise<boolean>;
   signup: (name: string, email: string, password?: string, bio?: string, avatar?: string) => Promise<boolean>;
+  loginAsGuest: () => Promise<void>;
   logout: () => void;
   updateProfile: (updated: Partial<UserProfile>) => Promise<void>;
 }
@@ -138,6 +139,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const loginAsGuest = async () => {
+    setIsLoading(true);
+    try {
+      await seedDatabase();
+      const guestUser = (await db.users.get(DEFAULT_USER.id)) || DEFAULT_USER;
+      setUser(guestUser);
+      localStorage.setItem('dreamy_active_user_id', guestUser.id);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const logout = () => {
     if (user) {
       logHistory({
@@ -162,7 +175,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, signup, logout, updateProfile }}>
+    <AuthContext.Provider value={{ user, isLoading, login, signup, loginAsGuest, logout, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );
